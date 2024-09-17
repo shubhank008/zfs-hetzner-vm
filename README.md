@@ -30,6 +30,13 @@ Debian 12 minimal setup with SSH server (HETZNER)
 zfs
 ````
 ````bash
+echo "===========remove unused kernels in rescue system========="
+for kver in $(find /lib/modules/* -maxdepth 0 -type d | grep -v "$(uname -r)" | cut -s -d "/" -f 4); do
+  apt purge --yes "linux-headers-$kver"
+  apt purge --yes "linux-image-$kver"
+done
+````
+````bash
 export LC_ALL=en_US.UTF-8 && screen -S zfs
 ````
 ````bash
