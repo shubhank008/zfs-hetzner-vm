@@ -30,6 +30,7 @@ wget -qO- https://raw.githubusercontent.com/terem42/zfs-hetzner-vm/master/hetzne
 ````bash
 zfs
 ````
+
 ````bash
 echo "===========remove unused kernels in rescue system========="
 for kver in $(find /lib/modules/* -maxdepth 0 -type d | grep -v "$(uname -r)" | cut -s -d "/" -f 4); do
@@ -37,9 +38,11 @@ for kver in $(find /lib/modules/* -maxdepth 0 -type d | grep -v "$(uname -r)" | 
   apt purge --yes "linux-image-$kver"
 done
 ````
+
 ````bash
 export LC_ALL=en_US.UTF-8 && screen -S zfs
 ````
+
 ````bash
 wget -qO- https://raw.githubusercontent.com/shubhank008/zfs-hetzner-vm/hetzner/hetzner-debian12-zfs-setup.sh | bash -
 ````
