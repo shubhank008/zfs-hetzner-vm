@@ -495,20 +495,20 @@ for kver in $(find /lib/modules/* -maxdepth 0 -type d | grep -v "$(uname -r)" | 
   apt purge --yes "linux-image-$kver"
 done
 
-echo "======= installing zfs on rescue system =========="
+#echo "======= installing zfs on rescue system =========="
 
-  echo "zfs-dkms zfs-dkms/note-incompatible-licenses note true" | debconf-set-selections  
+#  echo "zfs-dkms zfs-dkms/note-incompatible-licenses note true" | debconf-set-selections  
 #  echo "y" | zfs
 # linux-headers-generic linux-image-generic
-  apt install --yes software-properties-common dpkg-dev dkms
-  rm -f "$(which zfs)"
-  rm -f "$(which zpool)"
-  echo -e "deb http://deb.debian.org/debian/ testing main contrib non-free\ndeb http://deb.debian.org/debian/ testing main contrib non-free\n" >/etc/apt/sources.list.d/bookworm-testing.list
-  echo -e "Package: src:zfs-linux\nPin: release n=testing\nPin-Priority: 990\n" > /etc/apt/preferences.d/90_zfs
-  apt update  
-  apt install -t testing --yes zfs-dkms zfsutils-linux
-  rm /etc/apt/sources.list.d/bookworm-testing.list
-  rm /etc/apt/preferences.d/90_zfs
+ # apt install --yes software-properties-common dpkg-dev dkms
+#  rm -f "$(which zfs)"
+ # rm -f "$(which zpool)"
+ # echo -e "deb http://deb.debian.org/debian/ testing main contrib non-free\ndeb http://deb.debian.org/debian/ testing main contrib non-free\n" >/etc/apt/sources.list.d/bookworm-testing.list
+ # echo -e "Package: src:zfs-linux\nPin: release n=testing\nPin-Priority: 990\n" > /etc/apt/preferences.d/90_zfs
+ # apt update  
+ # apt install -t testing --yes zfs-dkms zfsutils-linux
+ # rm /etc/apt/sources.list.d/bookworm-testing.list
+  #rm /etc/apt/preferences.d/90_zfs
   apt update
   export PATH=$PATH:/usr/sbin
   zfs --version
@@ -560,6 +560,7 @@ echo "======= create zfs pools and datasets =========="
 zpool create \
   -o cachefile=/etc/zpool.cache \
   -o ashift=12 -d \
+  -o compatibility=grub2 \
   -o feature@async_destroy=enabled \
   -o feature@bookmarks=enabled \
   -o feature@embedded_data=enabled \
