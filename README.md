@@ -25,7 +25,7 @@ wget -qO- https://raw.githubusercontent.com/terem42/zfs-hetzner-vm/master/hetzne
 ````
 --------------------------------------------------
 
-## Debian 12 minimal setup with SSH server (HETZNER)
+#### Debian 12 minimal setup with SSH server (HETZNER)
 
 ````bash
 zfs
