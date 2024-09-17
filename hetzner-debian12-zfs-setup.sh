@@ -562,17 +562,19 @@ zpool create \
   -O acltype=posixacl -O xattr=sa \
   -o cachefile=/etc/zpool.cache \
   -O mountpoint=/boot -R $c_zfs_mount_dir -f \
-  $v_bpool_name raidz "${bpool_disks_partitions[@]}"    #ENABLE RAID5
- # $v_rpool_name $pools_mirror_option "${rpool_disks_partitions[@]}"
+  $v_bpool_name raidz "${bpool_disks_partitions[@]}"
+  
 
 # shellcheck disable=SC2086
 echo -n "$v_passphrase" | zpool create \
   $v_rpool_tweaks \
+  -o feature@head_errlog=disabled \
+  -o feature@vdev_zaps_v2=disabled \
+  -o feature@zilsaxattr=disabled \
   -o cachefile=/etc/zpool.cache \
   "${encryption_options[@]}" \
   -O mountpoint=/ -R $c_zfs_mount_dir -f \
-  $v_rpool_name raidz "${rpool_disks_partitions[@]}"  #ENABLE RAID5  
- # $v_rpool_name $pools_mirror_option "${rpool_disks_partitions[@]}"
+  $v_rpool_name raidz "${rpool_disks_partitions[@]}"  
 
 zfs create -o canmount=off -o mountpoint=none "$v_rpool_name/ROOT"
 zfs create -o canmount=off -o mountpoint=none "$v_bpool_name/BOOT"
