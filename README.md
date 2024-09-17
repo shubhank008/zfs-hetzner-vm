@@ -28,7 +28,11 @@ Debian 12 minimal setup with SSH server (HETZNER)
 
 ````bash
 zfs
+````
+````bash
 export LC_ALL=en_US.UTF-8 && screen -S zfs
+````
+````bash
 wget -qO- https://raw.githubusercontent.com/shubhank008/zfs-hetzner-vm/hetzner/hetzner-debian12-zfs-setup.sh | bash -
 ````
 
